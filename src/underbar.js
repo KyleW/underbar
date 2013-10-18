@@ -1,16 +1,5 @@
 /*jshint eqnull:true, expr:true*/
 
-// To Do List 
-// x last
-// x each
-// ?? indexOf
-// filter
-// reject
-// uniq
-// map
-// pluck
-// invoke
-
 var _ = { };
 
 (function() {
@@ -76,9 +65,9 @@ var _ = { };
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
 
-    // TIP: Here's an example of a function that needs to iterate, which we've
-    // implemented for you. Instead of using a standard `for` loop, though,
-    // it uses the iteration helper `each`, which you will need to write.
+  // TIP: Here's an example of a function that needs to iterate, which we've
+  // implemented for you. Instead of using a standard `for` loop, though,
+  // it uses the iteration helper `each`, which you will need to write.
 
   _.indexOf = function(array, target){
     var answer = -1;
@@ -93,6 +82,13 @@ var _ = { };
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
+    var answer = [];
+    _.each(collection,function(num){
+      if (iterator(num) === true){
+        answer.push(num);
+      }
+    });
+    return answer;
   };
 
   // Return all elements of an array that don't pass a truth test.
