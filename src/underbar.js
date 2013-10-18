@@ -1,5 +1,16 @@
 /*jshint eqnull:true, expr:true*/
 
+// To Do List 
+// last
+// each
+// indexOf
+// filter
+// reject
+// uniq
+// map
+// pluck
+// invoke
+
 var _ = { };
 
 (function() {
@@ -16,11 +27,36 @@ var _ = { };
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
+    var holder=[];
+    if (n !== undefined){
+      for (var i = 0 ; i < n; i++){
+        if (array.length > 0){
+          holder.push(array.shift())
+        }
+      }
+    }else {
+      holder.push(array.shift())
+      return holder[0]
+    }
+    return holder;
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+    var holder=[];
+    if (n !== undefined){
+      for (var i = 0 ; i < n; i++){
+        if (array.length > 0){
+          holder.push(array.pop())
+        }
+      }
+    }else {
+      holder.push(array.pop())
+      return holder[0]
+    }
+    holder = holder.reverse();
+    return holder;
   };
 
   // Call iterator(value, key, collection) for each element of collection.
