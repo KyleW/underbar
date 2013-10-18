@@ -3,7 +3,7 @@
 // To Do List 
 // x last
 // x each
-// indexOf
+// ?? indexOf
 // filter
 // reject
 // uniq
@@ -67,8 +67,8 @@ var _ = { };
         iterator(collection[i], i, collection);
       }
     } else {
-      for (var item in collection){
-        iterator(collection[item], item, collection);
+      for (var key in collection){
+        iterator(collection[key], key, collection);
       }
     }
   };
@@ -81,12 +81,14 @@ var _ = { };
     // it uses the iteration helper `each`, which you will need to write.
 
   _.indexOf = function(array, target){
-    for (var i=0; i < array.length; i++ ){
-      if (array[i] === target){
-        return i;
+    var answer = -1;
+    _.each(array, function(num, index, collection){
+      console.log(num,index,target); // for debugging
+      if (num === target && answer === -1){
+        answer = index;
       }
-    }
-    return -1;
+    });
+    return answer;
   };
 
   // Return all elements of an array that pass a truth test.
