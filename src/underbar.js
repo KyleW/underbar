@@ -2,7 +2,7 @@
 
 // To Do List 
 // x last
-// each
+// x each
 // indexOf
 // filter
 // reject
@@ -29,7 +29,7 @@ var _ = { };
   _.first = function(array, n) {
     var holder=[];
     if (n !== undefined){
-      for (var i = 0 ; i < n; i++){
+      for (var i = 0; i < n; i++){
         if (array.length > 0){
           holder.push(array.shift());
         }
@@ -46,7 +46,7 @@ var _ = { };
   _.last = function(array, n) {
     var holder=[];
     if (n !== undefined){
-      for (var i = 0 ; i < n; i++){
+      for (var i = 0; i < n; i++){
         if (array.length > 0){
           holder.push(array.pop());
         }
@@ -64,21 +64,29 @@ var _ = { };
   _.each = function(collection, iterator) {
     if (Array.isArray(collection) === true ){
       for (var i = 0 ; i < collection.length ; i++){
-        iterator(collection[i] , i, collection);
+        iterator(collection[i], i, collection);
       }
     } else {
       for (var item in collection){
-        iterator(collection[item] , item , collection);
+        iterator(collection[item], item, collection);
       }
     }
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
-  _.indexOf = function(array, target){
+
     // TIP: Here's an example of a function that needs to iterate, which we've
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
+
+  _.indexOf = function(array, target){
+    for (var i=0; i < array.length; i++ ){
+      if (array[i] === target){
+        return i;
+      }
+    }
+    return -1;
   };
 
   // Return all elements of an array that pass a truth test.
