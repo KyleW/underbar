@@ -1,7 +1,7 @@
 /*jshint eqnull:true, expr:true*/
 
 // To Do List 
-// last
+// x last
 // each
 // indexOf
 // filter
@@ -31,12 +31,12 @@ var _ = { };
     if (n !== undefined){
       for (var i = 0 ; i < n; i++){
         if (array.length > 0){
-          holder.push(array.shift())
+          holder.push(array.shift());
         }
       }
     }else {
-      holder.push(array.shift())
-      return holder[0]
+      holder.push(array.shift());
+      return holder[0];
     }
     return holder;
   };
@@ -48,12 +48,12 @@ var _ = { };
     if (n !== undefined){
       for (var i = 0 ; i < n; i++){
         if (array.length > 0){
-          holder.push(array.pop())
+          holder.push(array.pop());
         }
       }
     }else {
-      holder.push(array.pop())
-      return holder[0]
+      holder.push(array.pop());
+      return holder[0];
     }
     holder = holder.reverse();
     return holder;
@@ -62,6 +62,15 @@ var _ = { };
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
   _.each = function(collection, iterator) {
+    if (Array.isArray(collection) === true ){
+      for (var i = 0 ; i < collection.length ; i++){
+        iterator(collection[i] , i, collection);
+      }
+    } else {
+      for (var item in collection){
+        iterator(collection[item] , item , collection);
+      }
+    }
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
