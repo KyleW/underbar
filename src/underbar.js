@@ -150,7 +150,9 @@ var _ = { };
 
 
     _.invoke = function(list, methodName, args) {
-
+      return _.map(array, function(value){
+        return value.methodName();
+      });
     };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -167,6 +169,15 @@ var _ = { };
   //   }, 0); // should be 6
   //
   _.reduce = function(collection, iterator, initialValue) {
+    if (initialValue){
+      var total = initialValue;
+    } else {
+      var total = 0;
+    }
+    _.each(collection,function(num){
+      total = iterator(total,num);
+    });
+    return total;
   };
 
   // Determine if the array or object contains a given value (using `===`).
