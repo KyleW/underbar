@@ -275,8 +275,11 @@ var _ = { };
     var holder= {};
     _.each(arguments, function(current){
       _.each(current, function(val,key){
-        if (holder[key] === undefined){holder[key] = val;}
-      } );
+        var test = (key in holder);
+        if(test === false){
+          holder[key] = val;
+        }
+      });
     });
     return holder;
   };
@@ -319,18 +322,15 @@ var _ = { };
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    if (result[arguments] === undefined){
+    if (result === undefined){
       var result = {};
-    // TIP: We'll return a new function that delegates to the old one, but only
-    // if it hasn't been called before.
-      return function(){
-        // TIP: .apply(this, arguments) is the standard way to pass on all of the
-        // infromation from one function call to another.
-        result[arguments] = func.apply(this, arguments);
-      };
     }
-    else {return result[arguments];}
+    if (result[func]=== undefined){
+      result[func] = func.apply(this, arguments);
+    }
+    return result[func];
   };
+
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
