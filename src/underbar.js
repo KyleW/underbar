@@ -194,6 +194,8 @@ var _ = { };
 
 
   // Determine whether all of the elements match a truth test.
+  // TIP: Try re-using reduce() here.
+
   _.every = function(collection, iterator) {
     return _.reduce(collection, function(result, item) {
       if (iterator){
@@ -209,14 +211,33 @@ var _ = { };
         }  
       }       
       return result;
-    }, true);
-    // TIP: Try re-using reduce() here.
+    }, true); 
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if (iterator && collection){
+      return (_.contains(_.map(collection,iterator), true)||_.contains(_.map(collection,iterator), 1));
+    } else if (collection.length === 0 || collection === undefined) {
+       return false;
+    } else if (iterator === undefined) {
+      var holder = _.map(collection, function(n){
+        if (n === true || n === 'yes'){
+          return true;
+        } else if ( n === 1){
+          return true;
+        } else if ( n === 0){
+          return false;
+        }
+      })
+      return (_.contains(holder, true) || _.contains(holder, 1));
+    }
+
+    
+    
+
   };
 
 
@@ -305,6 +326,7 @@ var _ = { };
   _.shuffle = function(array) {
   };
 
+// END OF SECTION 2
 
   /**
    * Note: This is the end of the pre-course curriculum. Feel free to continue,
