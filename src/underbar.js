@@ -150,9 +150,15 @@ var _ = { };
 
 
     _.invoke = function(list, methodName, args) {
-      return _.map(list, function(value){
-        return methodName.apply(value);
-      });
+      if (typeof(methodName)==="function"){
+        return _.map(list, function(value){
+          return methodName.apply(value);  
+        });
+      } else {
+        return _.map(list, function(value){
+          return value[methodName].apply(value);
+        }); 
+      }
     };
 
   // Reduces an array or object to a single value by repetitively calling
