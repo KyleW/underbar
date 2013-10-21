@@ -151,7 +151,7 @@ var _ = { };
 
     _.invoke = function(list, methodName, args) {
       return _.map(array, function(value){
-        return value.methodName();
+        return methodName.apply(value);
       });
     };
 
@@ -266,6 +266,13 @@ var _ = { };
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var holder= {};
+    _.each(arguments, function(current){
+      _.each(current, function(val,key){
+        if (holder[key] === undefined){holder[key] = val;}
+      } );
+    });
+    return holder;
   };
 
 
@@ -306,6 +313,17 @@ var _ = { };
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    if (result[arguments] === undefined){
+      var result = {};
+    // TIP: We'll return a new function that delegates to the old one, but only
+    // if it hasn't been called before.
+      return function(){
+        // TIP: .apply(this, arguments) is the standard way to pass on all of the
+        // infromation from one function call to another.
+        result[arguments] = func.apply(this, arguments);
+      };
+    }
+    else {return result[arguments];}
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -314,7 +332,11 @@ var _ = { };
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
+
   _.delay = function(func, wait) {
+    return setTimeout(function(){
+      return func.apply(this, arguments);
+    },wait);
   };
 
 
@@ -325,9 +347,24 @@ var _ = { };
 
   // Shuffle an array.
   _.shuffle = function(array) {
+    var unit;
+    var rand;
+    var next;
+    var answer = [];
+    while (array.length > 0){
+      unit = 1/array.length;
+      next = Math.floor(Math.random()/unit);
+      var select = array.splice(next,1)
+      answer.push(select[0]);
+    }
+    return answer;
   };
 
+
+
 // END OF SECTION 2
+
+
 
   /**
    * Note: This is the end of the pre-course curriculum. Feel free to continue,
