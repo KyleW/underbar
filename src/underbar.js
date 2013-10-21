@@ -341,7 +341,7 @@ var _ = { };
 
   _.delay = function(func, wait) {
     return setTimeout(function(){
-      return func.apply(null,arguments);
+      return func.apply();
     },wait);
   };
 
