@@ -150,7 +150,7 @@ var _ = { };
 
 
     _.invoke = function(list, methodName, args) {
-      return _.map(array, function(value){
+      return _.map(list, function(value){
         return methodName.apply(value);
       });
     };
@@ -359,11 +359,6 @@ var _ = { };
     }
     return answer;
   };
-
-
-
-// END OF SECTION 2
-
 
 
   /**
