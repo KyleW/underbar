@@ -224,20 +224,12 @@ var _ = { };
        return false;
     } else if (iterator === undefined) {
       var holder = _.map(collection, function(n){
-        if (n === true || n === 'yes'){
+        if (n === true || n === 'yes' || n === 1){
           return true;
-        } else if ( n === 1){
-          return true;
-        } else if ( n === 0){
-          return false;
         }
       })
       return (_.contains(holder, true) || _.contains(holder, 1));
     }
-
-    
-    
-
   };
 
 
@@ -259,8 +251,17 @@ var _ = { };
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
+
   _.extend = function(obj) {
+    var holder= {};
+    _.each(arguments, function(current){
+      _.each(current, function(val,key){
+        holder[key] = val;
+      } );
+    });
+    return holder;
   };
+
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
