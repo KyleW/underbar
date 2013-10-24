@@ -326,8 +326,7 @@ var _ = { };
       var result = {};
     }
     return function() {
-    	//    debugger;
-    	var key = func.apply(this, arguments);
+       	var key = func.apply(this, arguments);
     	if (key in result){
     		return result[key]
     	} else {
@@ -346,8 +345,9 @@ var _ = { };
   // call someFunction('a', 'b') after 500ms
 
   _.delay = function(func, wait) {
+  	var args = [].slice.call(arguments , 2);
     return setTimeout(function(){
-      return func.apply(arguments);
+      return func.apply(null, args);
     },wait);
   };
 
