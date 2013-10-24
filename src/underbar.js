@@ -72,7 +72,6 @@ var _ = { };
   _.indexOf = function(array, target){
     var answer = -1;
     _.each(array, function(num, index, collection){
-      console.log(num,index,target); // for debugging
       if (num === target && answer === -1){
         answer = index;
       }
@@ -271,17 +270,17 @@ var _ = { };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
+
   _.defaults = function(obj) {
-    var holder= {};
     _.each(arguments, function(current){
       _.each(current, function(val,key){
-        var test = (key in holder);
+        var test = (key in obj);
         if(test === false){
-          holder[key] = val;
+          obj[key] = val;
         }
       });
     });
-    return holder;
+    return obj[0];
   };
 
 
@@ -321,14 +320,21 @@ var _ = { };
   // Memoize should return a function that when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
+
   _.memoize = function(func) {
     if (result === undefined){
       var result = {};
     }
-    if (result[func]=== undefined){
-      result[func] = func.apply(this, arguments);
-    }
-    return result[func];
+    return function() {
+    	//    debugger;
+    	var key = func.apply(this, arguments);
+    	if (key in result){
+    		return result[key]
+    	} else {
+    		result[key] = func.apply(this, arguments);
+    		return result[key];
+    	}
+    }   
   };
 
 
@@ -341,7 +347,7 @@ var _ = { };
 
   _.delay = function(func, wait) {
     return setTimeout(function(){
-      return func.apply();
+      return func.apply(arguments);
     },wait);
   };
 
