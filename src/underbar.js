@@ -391,8 +391,12 @@ _.extend = function(obj) {
   //
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
-  _.zip = function() {
-
+  _.zip = function(arguments) {
+  	var result = [];
+  	_.each(arguments, function(val, key, collection){
+  		result.push([val]);
+  	})
+  	return result;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
@@ -416,19 +420,29 @@ _.extend = function(obj) {
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
-  _.intersection = function() {
+  _.intersection = function(array) {
+  	var result = [];
+  	var start = array.shift();
+  	var all = _.flatten(array);
+  	_.each(start, function(current, index, collection){
+  		if (_.contains(all,current) === false){
+  			result.push(current);
+  		}
+  	})
   };
+
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
-  	var result = [];
-  	_.each(array[0], function(array){
-  		for (var i = 1 ; i < array.length; i++){
-
-
+  	var result = []
+  	var start = array.shift();
+  	var remaining = _.flatten(array);
+  	_.each(start, function(val, key, collection){
+  		if(_.contains(remaining,val) === false){
+  			result.push(val);
   		}
-  	});
+  	})
   	return result;
   };
 
